@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户系统</title>
+    <link type="text/css" href="sources/css/bootstrap.min.css" rel="stylesheet">
+    <script src="sources/js/vue.js"></script>
+    <script src="sources/js/jquery-1.7.2.min.js"></script>
+    <script>
+      window.onload = function () {
+        let view = new Vue({
+          el: ".container",
+          data: {
+            users: [
+              {name: 'tom', age: 21, email: 'tom.email.com'}, {name: 'tony', age: 27, email: 'tony.email.com'}
+            ],
+            user: {},
+            nowIndex: -1//当前要删除的索引
+          },
+          methods: {
+            addUser() {
+              this.users.push(this.user);
+              this.user = {};
+            },
+            reset() {
+              this.user = {};
+            },
+            deletUsers() {
+              if (this.nowIndex == -1) {
+                   this.users=[];
+              } else {
+                this.users.splice(this.nowIndex, 1);//从nowindex位置开始删除，删除位置1
+              }
+
+            }
+          }
+        })
+      }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2>添加用户</h2>
+    <form class="form-group">
+        <div class="row"><label for="name" class="control-label col-sm-1 col-form-label">姓 名：</label>
+            <div class="col-sm-9"><input type="text" class="form-control" id="name" placeholder="请输入姓名"
+                                         v-model="user.name"></div>
+        </div>
+    </form>
+    <form class="form-group">
+        <div class="row"><label for="age" class="control-label col-sm-1 col-form-label">年 龄：</label>
+            <div class="col-sm-9"><input type="text" class="form-control" id="age" placeholder="请输入年龄"
+                                         v-model="user.age"></div>
+        </div>
+    </form>
+    <form class="form-group">
+        <div class="row"><label for="email" class="control-label col-sm-1 col-form-label">E-mail：</label>
+            <div class="col-sm-9"><input type="text" class="form-control" id="email" placeholder="请输入邮箱"
+                                         v-model="user.email"></div>
+        </div>
+    </form>
+    <form class="form-group">
+        <input type="button" value="添加" class="btn btn-primary" v-on:click="addUser">
+        <input type="button" value="重置" class="btn btn-primary" v-on:click="reset">
+
+    </form>
+    <hr>
+    <caption>用户列表</caption>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>操作</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr v-for="(user,index) in users" class="text-center">
+            <td>{{ index+1 }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{user.email}}</td>
+            <td>
+                <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#del"
+                        v-on:click="nowIndex=index">删除
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" class="text-right">
+                <button class="btn btn-danger col-sm" data-toggle="modal" data-target="#del" v-on:click="nowIndex=-1">
+                    删除所有
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!--模态窗 -->
+    <div class="modal" id="del">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"v-show="nowIndex!==-1">要删除用户:{{users[nowIndex]?users[nowIndex].name:''}}吗？</h4>
+                    <h4 class="modal-title"v-show="nowIndex===-1">要删除全部用户吗？</h4>
+                    <button class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <button class="btn btn-primary" data-dismiss="modal">取消</button>
+                    <button class="btn btn-primary" data-dismiss="modal" v-on:click="deletUsers">确定</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
+</body>
+<script src="sources/js/bootstrap.min.js"></script>
+</html>
