@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <link type="text/css" href="sources/css/bootstrap.min.css" rel="stylesheet">
+    <script src="sources/js/vue.js"></script>
+    <script src="sources/js/jquery-1.7.2.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        window.onload = function () {
+            var instance = axios.create({
+                baseURL: 'http://10.90.4.167/HTMLSources/user.php',
+                timeout: 1000,
+                headers: {
+                    'X-Custom-Header': 'foobar',
+                    'Access-Control-Allow-Origin': '*'
+                }
+            });
+            new Vue({
+                el: '#itany',
+                daat: {
+
+                },
+                methods: {
+                    send() {
+                        instance.get('', {
+                                name: 'Fred',
+                                gender: 'Flintstone'
+                            }
+
+                        ).then(resp => {
+                            console.log('tag', resp)
+                        });
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div id="itany">
+        <button @click="send">发Ajax请求</button>
+    </div>
+</body>
+<script src="sources/js/bootstrap.min.js"></script>
+
+</html>
