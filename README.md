@@ -102,3 +102,4 @@ echo json_encode($ret);
 ### 3.组件的分类 ComponentType
     全局和局部
     
+### 4.引用模板 ComponentModel

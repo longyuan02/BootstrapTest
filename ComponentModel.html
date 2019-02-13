@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="sources/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="itany">
+        <my-wold></my-wold>
+        <template id="wps">
+            <!-- 要求template 必须有且只有一个根元素 -->
+            <div>
+                <h3>{{msg}}<h3>
+                        <ul>
+                            <li v-for="item in arr">{{item}}</li>
+                        </ul>
+            </div>
+        </template>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#itany',
+        data() {
+            return {
+                name: 'Tom'
+            }
+        },
+        components: { //定义局部组件
+            'my-wold': {
+                template: '#wps', //引用template组件id
+                data() {
+                    return {
+                        msg: '欢迎访问',
+                        arr: ['jack', 'tom', 'ailice']
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</html>
