@@ -28,6 +28,7 @@ if(in_array($origin, $allow_origin)){
  
 echo json_encode($ret);
 ?>
+<<<<<<< HEAD
 ### 表格列表 删除 用户系统   
      CustomerSystem
 
@@ -76,3 +77,14 @@ echo json_encode($ret);
 ###  自定义指令 CustomerOrder
 ###  1.自定义全局指令
     使用全局方法vue.directive(指令id,指令定义对象)
+=======
+
+### post.php
+<?php
+	$ret = array(
+    'name' => isset($_POST['name'])? $_POST['name'] : '',
+    'age' => isset($_POST['age'])? $_POST['age'] : ''
+);
+	echo json_encode($ret);
+?>
+>>>>>>> 2c34df9e2596c10e92f89d3380d9835364bd4ada
