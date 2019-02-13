@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="sources/js/vue.js"></script>
+
+</head>
+<div id="itany">{{msg}}
+    <h2 ref="hello">hello</h2>
+    <p ref="wold"></p>
+    <h1 ref='title'>标题 {{names}}</h1>
+    <!-- set delete -->
+    <h1>{{user.name}}</h1>
+    <h2>{{user.age}}</h2>
+    <button @click="updata">set修改名字</button>
+    <button @click="duAdd">set添加属性</button>
+    <button @click="duDelete">set删除属性</button>
+
+    <input type="text" v-model="names">
+    <p>{{names}}</p>
+
+    <input type="text" v-model="user.name">
+    <p><span>深度修改:</span>{{user.name}}</p>
+
+    <input type="text" v-model="msg">
+    <p>{{msg}}</p>
+
+    <input type="text" v-model="user.name">
+    <p>{{user.name}}</p>
+    <input type="text" v-model="user.id">
+    <p>{{user.id}}</p>
+</div>
+
+<body>
+
+</body>
+<script>
+    let vm = new Vue({
+        el: '#itany',
+        data() {
+            return {
+                msg: '欢迎光临',
+                names: 'Tom',
+                user: {
+                    name: '汤姆',
+                    id: 1001
+                }
+            }
+        },
+        methods: {
+            updata: function () {
+                this.user.names = '汤姆';
+            },
+            duAdd: function () {
+                //添加后dom并未刷新  vue无法实时监听
+                // this.user.age = 25;
+                if (this.user.age) {
+                    this.user.age++
+                } else {
+                    Vue.set(this.user, 'age', 18);
+                    // vm.$set(this.user, 'age', 18);//通过vue实例的$set方法实现实时监视
+                }
+                console.log(this.user);
+            },
+            duDelete: function () {
+                if (this.user.age) {
+                    vm.$delete(this.user, 'age');
+                }
+            },
+            someMethod: function (newvalue, oldvalue) { //监听操作定义方法
+                console.log("--newvalue:" + newvalue + "--oldvalue:" + oldvalue)
+            }
+        },
+        watch: { //第二种方式监听内容变化
+            names: function (newvalue, oldvalue) {
+                console.log(this.names + "--newvalue:" + newvalue + "--oldvalue:" + oldvalue)
+            },
+            /*不能进行监听 监听对象未发生改变 内存地址未发生改变,监听不生效需要深度监听
+            user: function (newvalue, oldvalue) {
+                console.log(this.names + "--newvalue:" + newvalue + "--oldvalue:" + oldvalue)
+            }*/
+
+            // user: {//深度监听
+            //     handler: function (newvalue, oldvalue) {
+            //         console.log(this.user + "--newvalue:" + newvalue.name + "--oldvalue:" + oldvalue.name)
+            //     },
+            //     deep: true
+            // }
+            /* 具体属性监听*/
+            msg: 'someMethod', //调用方法监听
+            'user.name': function (newvalue, oldvalue) {
+                console.log("--newvalue:" + newvalue + "--oldvalue:" + oldvalue)
+            }
+        },
+        //自定义属性
+        name: '无名',
+        age: 800,
+        sex: '男'
+    });
+    /*
+     * 属性
+     */
+    //vm.属性名 获取data中的属性
+    // console.log(vm.msg)
+
+    //vm.$el 用来获取vue实例关联的元素
+    // console.log(vm.$el)是一个dom对象
+    // vm.$el.style.color = 'red'; //改变颜色
+
+    //vm.$data 用来获取对象data
+    // console.log(vm.$data)
+    // console.log(vm.$data.msg)
+
+    //vm.$option 获取自定义属性
+    // console.log(vm.$options.name);
+    // console.log(vm.$options.age);
+    // console.log(vm.$options.sex)
+
+    //vm.$refs 获取所有添加ref属性的元素
+    // console.log(vm.$refs.hello); //dom对象
+    // vm.$refs.hello.style.color = 'red';
+
+    // vm.$mount('#itany') //手动挂载vue实例
+    // 实例同时挂载
+    // new Vue({
+    //     data:{
+    //         msg:'欢迎光临'
+    //     }
+    // }).$mount('#itany');
+
+    //修改数据有全局
+    // vm.names = 'tomcat';
+    // // dom还没有更新完,vue实现响应式,并不是数据发生改变后立即更新,需要按照一定的策略进行dom更新,需要时间!
+    // vm.$nextTick(function () {//获取更新后dom
+    //     console.log(vm.$refs.title.textContent);
+    // })
+    //数据监听
+    // vm.$watch('names', function (newvalue, oldvalue) {
+    //     console.log(this.names + "--newvalue:" + newvalue + "--oldvalue:" + oldvalue)
+    // });
+</script>
+
+</html>

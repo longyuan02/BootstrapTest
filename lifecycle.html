@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>生命周期</title>
+    <style>
+        [v-cloak] {
+            display: none
+        }
+    </style>
+    <script src="sources/js/vue.js"></script>
+    <script>
+        window.onload = function () {
+            let vm = new Vue({
+                el: '#itany',
+                data: {
+                    msg: ''
+                },
+                methods: {
+                    clickUp() {
+                        this.msg = '欢迎来访';
+                    },
+                    clickDestroy() {
+                        // this.$destroy();//第一种方式销毁
+                        vm.$destroy(); //或者声明实例销毁
+                    }
+                },
+                beforeCreate() {
+                    alert('组件实例刚刚创建，还未进行数据观测和事件配置');
+                },
+                created() { //常用
+                    alert('组件已创建完成，并且已进行数据观测和事件配置');
+                },
+                beforeMount() {
+                    alert('模板编译之前还未挂载');
+                },
+                mounted() { //常用
+                    alert('模板编译之后，已经挂载，此时才会渲染完成，才能看到页面的数据展示');
+                },
+                beforeUpdate() {
+                    alert('组件更新之前');
+                },
+                updated() {
+                    alert('组件更新之后');
+                },
+                beforeDestroy() {
+                    alert('组件销毁之前');
+                },
+                destroyed() {
+                    alert('组件已销毁');
+                },
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="itany" v-cloak>{{msg}}
+        <button @click="clickUp">更新数据</button>
+        <button @click="clickDestroy">销毁组件</button>
+    </div>
+</body>
+
+</html>
