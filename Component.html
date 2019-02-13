@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定义组件的两种方式</title>
+    <script src="sources/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="itany">
+        <!-- <hello></hello> -->
+        <create-vue></create-vue>
+    </div>
+</body>
+<script>
+    //使用vue组件构造器创建组件
+    //1创建一个组件构造器 
+    var myDocument = Vue.extend({
+        template: '<h3>hello, show this world</h3>'
+    });
+    //2.使用组件构造器创建组件 vue.component('标签名称',构造器)
+    Vue.component('hello', myDocument);
+    Vue.component('create-vue', {
+        template: '<h1>create views</h1>'
+    });
+
+    let vm = new Vue({
+        el: '#itany',
+        data() {
+            return {
+                msg: '欢迎'
+            }
+        },
+    });
+</script>
+
+</html>

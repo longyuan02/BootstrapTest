@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="sources/js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="itany">
+        <!-- 绑定时需要使用 v-指令名称 -->
+        <!-- <p v-world:哈哈.呵呵=name>{{msg}}</p> -->
+        <P v-wps></P>
+        <button @click='changes'>变更数据</button>
+        <input type="text" v-model="msg" v-focus>
+    </div>
+</body>
+<script>
+    //创建自定义指令
+    Vue.directive('hello', {
+        bind: function () { //最常用
+            alert('指令第一次绑定到元素上时会调用,只会调用一次,可执行初始化操作')
+        },
+        inserted: function () {
+            alert('被绑定元素插入到dom中调用')
+        },
+        update: function () {
+            alert('被绑定元素所在模板更新时调用')
+        },
+        componentUpdated: function () {
+            alert('被绑定元素完成一次更新后调用')
+        },
+        unbind: function () {
+            alert('指令元素解绑后调用')
+        }
+
+    });
+
+    Vue.directive('world', {
+        bind: function (el, binding) {
+            alert('wold')
+            console.log(binding); //指令绑定的元素 dom对象
+            el.style.color = 'red'
+        }
+    });
+
+    // 传入一个简单的函数
+    Vue.directive('wps', function () { //dind update 会被调用
+        alert('wps');
+    });
+    let vm = new Vue({
+        el: '#itany',
+        data() {
+            return {
+                name: '名字',
+                msg: '欢迎使用'
+            }
+        },
+        methods: {
+            changes: function () {
+                this.msg = '变更信息'
+            }
+        },
+        directives: { //局部定义指令
+            focus: {
+                //当被绑定元素插入dom时,输入框获取焦点
+                inserted: function (el) {
+                    el.focus();
+                }
+            }
+        }
+    });
+</script>
+
+</html>

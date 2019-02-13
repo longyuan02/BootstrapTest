@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件分类</title>
+    <script src="sources/js/vue.js"></script>
+</head>
+
+<body>
+    <div id="itany">
+        <my_hello></my_hello>
+        <my-wold></my-wold>
+
+    </div>
+</body>
+<script>
+    //全局组件可以自所有vue实例中使用
+    Vue.component('my_hello', {
+        template: '<h3>{{name}}</h3>',
+        //组件中data需要使用函数return 值
+        data: function () {
+            return {
+                name: 'myhello'
+            }
+        }
+    });
+    //局部组件只能在当前组件中使用
+    let vm = new Vue({
+        el: '#itany',
+        data() {
+            return {
+                name: 'Tom'
+            }
+        },
+        components: { //定义局部组件
+            'my-wold': {
+                template: '<h3>welcome stop</h3>'
+            }
+        }
+    });
+</script>
+
+</html>

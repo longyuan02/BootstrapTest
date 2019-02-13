@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="sources/js/vue.js"></script>
+    <style>
+        #itany div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+
+        #itany .up {
+            background-color: red;
+            top: 0;
+            left: 0;
+        }
+
+        #itany .down {
+            background-color: blue;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="itany">
+        <div class="up" v-drag>flying </div>
+        <div class="down" v-drag>蜻蜓 </div>
+    </div>
+</body>
+<script>
+    Vue.directive('drag', function (el) {
+        el.onmousedown = function (e) {
+            //获取鼠标点击位置  鼠标点击处 分别与div左边和上边的距离,鼠标位置-div位置
+            var disx = e.clientX - el.offsetLeft;
+            var disY = e.clientY - el.offsetTop;
+            console.log(disx, disY)
+            // el.onmousemove = function (e) { 若果鼠标滑动速度过快,会移出方块所以使用document
+            //注: 包含在onmousedown里面,表示殿后才移动,为防止鼠标移出div,使用document.onmousemove
+            document.onmousemove = function (e) {
+                console.log('111');
+                //获取div移动后位置:鼠标位置-disx位置
+                var l = e.clientX - disx;
+                var t = e.clientY - disY;
+                el.style.left = l + 'px';
+                el.style.top = t + 'px';
+            }
+            document.onmouseup = function (e) {
+                document.onmousemove = null;
+                document.onmouseup = null;//移除document.onmouseup事件
+            }
+        }
+    });
+    let vm = new Vue({
+        el: '#itany',
+        data() {
+            return {
+                name: '名字',
+                msg: '欢迎使用'
+            }
+        },
+    });
+</script>
+
+</html>
