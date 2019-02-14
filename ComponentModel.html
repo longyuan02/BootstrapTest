@@ -5,13 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>组件以及动态加载组件</title>
     <script src="sources/js/vue.js"></script>
 </head>
 
 <body>
     <div id="itany">
         <my-wold></my-wold>
+        <button @click="tag='second-wold'">显示second</button>
+        <button @click="tag='third-wold'">显示third</button>
+        <!-- <second-wold></second-wold>
+        <third-wold></third-wold> -->
+        <!-- 保留状态防止重新创建渲染,重复请求 -->
+        <keep-alive>
+            <component :is="tag"></component>
+        </keep-alive>
+
         <template id="wps">
             <!-- 要求template 必须有且只有一个根元素 -->
             <div>
@@ -28,16 +37,34 @@
         el: '#itany',
         data() {
             return {
-                name: 'Tom'
+                name: 'Tom',
+                tag: 'second-wold'
             }
         },
         components: { //定义局部组件
-            'my-wold': {
+            'my-wold': { //组件id 注不能使用关键字命名
+                name: 'mywold-name', //组件名称 如果没有设置 则默认显示组件id
                 template: '#wps', //引用template组件id
                 data() {
                     return {
                         msg: '欢迎访问',
                         arr: ['jack', 'tom', 'ailice']
+                    }
+                }
+            },
+            'second-wold': {
+                template: '<h3>second {{name}}</h3>',
+                data() {
+                    return {
+                        name: Math.random()
+                    }
+                }
+            },
+            'third-wold': {
+                template: '<h3> third{{msg}}</h3>',
+                data() {
+                    return {
+                        msg: Math.random()
                     }
                 }
             }
