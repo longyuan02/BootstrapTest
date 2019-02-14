@@ -143,3 +143,27 @@ echo json_encode($ret);
          需要显示触发一个更新事件
          常用方式
          b.可以将父组件中的数据包装成对象,然后在子组件中修改对象的属性(对象是引用类型,指向同一个内存空间)
+
+####  4.非父子组件之间的通信   CrossingCommunication
+     非父子组件之间的通信,可以通过一个空的Vue实例作为中央事件总线,用它来触发事件和监听事件
+     var event=new Vue();
+     evnet.$emit(事件名,数据);
+     event.$on(事件名,data=>{})
+
+
+## 三.内容分发slot   CrossingCommunication
+     本意位置、槽
+     作用：用来获取组件中的原内容，类似angular中的transclude指令
+
+
+
+## 四 vue-router路由 
+    使用Vue.js开发SPA（Single page Application）单页面应用
+    根据不同url地址，显示不同的内容，单显示在同一个页面中，成为单页面应用
+
+   [参考](https://router.vuejs.org/)
+
+   npm info vue-router 查看最新版本
+   npm install vue-router  安装
+
+   页面布局

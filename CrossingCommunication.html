@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父子组件通信--建立空vue</title>
+    <script src="sources/js/vue.js"></script>
+    <script>
+        // 组件1
+        let component1 = Vue.extend({
+            template: '#component1v',
+            data() {
+                return {
+                    name: '组件1'
+                }
+            },
+            methods: {
+                send() {
+                    eventSend.$emit('data-a', this.name);
+                }
+            }
+        });
+
+        // 组件二
+        let component2 = Vue.extend({
+            template: '#component2v',
+            data() {
+                return {
+                    name: '组件2'
+                }
+            },
+            methods: {
+                send() {
+                    eventSend.$emit('data-b', this.name);
+                }
+            }
+        });
+
+        // 组件三
+        let component3 = Vue.extend({
+            template: '#component3v',
+            data() {
+                return {
+                    name: ''
+                }
+            },
+            methods: {
+                send() {
+                    eventSend.$emit('data-c', this.name);
+                }
+            },
+            //-------------------------------------------------------------------------------
+            mounted() { //接受传递数据
+                eventSend.$on('data-a', name => {
+                        this.name = name;
+                    }),
+                    eventSend.$on('data-b', name => { //必须使用箭头方式传递 否则this拿到的是 eventSend实例 函数方式拿到的是传递内上下文,箭头函数拿到的是继承的上下文
+                        eventSend.name = name;
+                    });
+            },
+        });
+    </script>
+</head>
+
+<body>
+    <div id="itany">
+        <component1v>
+            <!-- 通过指定 solt name来标记需要显示的内容 在布局中通过name来调用 -->
+            <ul slot="ul">
+                <li>aaa</li>
+                <li>bbb</li>
+                <li>ccc</li>
+            </ul>
+            <ol slot="ol">
+                <li>qqq</li>
+                <li>www</li>
+                <li>eee</li>
+            </ol>
+        </component1v>
+        <hr>
+        <component2v></component2v>
+        <hr>
+        <component3v></component3v>
+
+    </div>
+
+    <!-- 模板 -->
+    <template id="component1v">
+        <div>
+            <h3>组件1</h3>
+            <!-- solt 通过name来调用 -->
+            <slot name="ul"></slot>
+            <p>{{name}}</p>
+            <button @click="send">向兄弟组件C传递</button>
+            <slot name="ol"></slot>
+        </div>
+    </template>
+
+    <template id="component2v">
+        <div>
+            <h3>组件2</h3>
+            <p>{{name}}</p>
+            <button @click="send">向兄弟组件C传递</button>
+        </div>
+    </template>
+
+    <template id="component3v">
+        <div>
+            <h3>组件3</h3>
+            <p>{{name}}</p>
+        </div>
+    </template>
+</body>
+<script>
+    var eventSend = new Vue({
+        data() {
+            return {
+                addMessge: 'aaaaassssssdddddffffggggg'
+            }
+        }
+    }); //接受监听vue
+    new Vue({
+        el: '#itany',
+        data() {
+            return {
+
+            }
+        },
+        props: [],
+        methods: {
+
+        },
+        components: {
+            'component1v': component1,
+            'component2v': component2,
+            'component3v': component3
+        }
+    });
+</script>
+
+</html>

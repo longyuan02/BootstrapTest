@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由基本用法</title>
+    <script src="sources/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js">
+    </script>
+    <style>
+        /* 修改链接点击样式 */
+        .active {
+            font-size: 20px;
+            color: aquamarine;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="itany">
+        <!-- 设置链接 - to属性指定链接跳转url -->
+        <div>
+            <router-link to="/home">主页</router-link>
+            <router-link to="/news">新闻</router-link>
+        </div>
+        <!-- 链接显示  显示路由内容 -->
+        <div>
+            <router-view></router-view>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    //1.定义响应的组件
+    var Home = {
+        template: '<h4>我是主页</h4>'
+    };
+
+    var News = {
+        template: '<h4>我是新闻</h4>'
+    };
+    //2.配置路由
+    const routers = [{
+            path: '/news',
+            component: News
+        },
+        {
+            path: '/home',
+            component: Home
+        },
+        {
+            path: '/',
+            redirect: '/home'
+        } //默认显示 重新定向
+    ]
+
+    //3.创建路由实例
+    const routerinput = new VueRouter({
+        mode: 'hash', //更改模式 默认hash 可用"hash" | "history" | "abstract"
+        routes: routers, //简写,相当于 routers:routerI
+        linkActiveClass: 'active', //重新定义 router-link-active class名称
+    })
+    //4.创建根组件实例并将路由挂载到Vue实例上
+    new Vue({
+        el: '#itany',
+        data() {
+            return {
+
+            }
+        },
+        router: routerinput //注入路由
+    });
+</script>
+
+</html>
