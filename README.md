@@ -292,3 +292,45 @@ echo json_encode($ret);
      .eslintrc.js 设置规则等
      .eslintgnore 设置忽略文件
 [官网](http://eslint.org)
+
+## 六模块化开发  vue-cli-demo  webpack-simple
+### 1.vue-router模块化
+     手动安装vue-ruter  cnpm install vue-router -S
+* 使用scaffold命令快速生成模板块
+
+##### 1.1.在main.js导入vue-router
+<pre><code>
+      import VueRouter from 'vue-router'
+      //使用VueRouter
+      Vue.use(VueRouter);
+      //创建路由
+     const router = new VueRouter(routerConfig);
+
+new Vue({
+  el: '#app',
+  render: h => h(App),
+  router
+})
+</code></pre>
+#### 1.2.编辑App.vue
+
+#### 1.3.编辑router.config.js
+     新建一个router配置文件 routerConfig.js 配置路由文件 然后在main.js中引入
+     
+#### 1.4.挂载时监听router 
+<pre><code>
+mounted() {
+    console.log(this.$route);
+  },
+  watch: {
+    $route:function(newValue,oldValue){
+      console.log('路由发生变化 跳转到:'+newValue.path)
+    }
+  }</code></pre>     
+
+#### 2.axios模块化
+     安装 cnpm install axios -S
+     使用axios的两种方式:不是全局插件
+     方式1:
+
+
