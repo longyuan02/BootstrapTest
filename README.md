@@ -249,6 +249,38 @@ echo json_encode($ret);
 #### 4.6运行
      npm run dev     
 
+## 五 脚手架 Vue-CLI
+### 1.简介
+     vue-cli是一个Vue脚手架,可以快速构建项目结构
+     vue-cli本身集成了多种项目模板
+     [github介绍](https://github.com/vuejs/vue-cli/tree/v2#vue-cli--)
+     simple 很少使用
+     webpack 包含ESLint工具--代码规范检查、单元测试等
+     webpack-simple 没有代码规范检查和单元测试
+     browserify 基本功能与webpack相同 使用也比较多
+     browserify-simple
+### 2 示例,步骤:
+####    2.1.安装vue-cli
+     npm install -g vue-cli   //(-g)全局安装
+     vue --version  查看版本
+     vue list 可用模板
 
+#### 2.2初始化项目
+     语法:vue init 模板名称 项目名
+#### 2.3 进入生成的项目目录,安装模块宝
+     cd 到工程目录
+     npm install //安装相应依赖
 
+#### 2.4运行
+     npm run dev //启动测试服务
+     npm build //将项目打包输入到dis目录,上模上线的话要将dis目录拷贝到服务器上
+ <pre><code>
+ module.exports = {
+     entry: './src/main.js',
+     output: {
+     path: path.resolve(__dirname, './dist'),
+     publicPath: '/dist/',
+     filename: 'build.js'
+     }
+</code></pre>    
      
