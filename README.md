@@ -1,45 +1,44 @@
 #BootstrapTest
 https://github.com/longyuan02/BootstrapTest.git
+[markdown语法](https://blog.csdn.net/guo20082200/article/details/82755387#Markdown_2)
+
+##### 代码块 <pre><code></code></pre>
+
 ### 过滤第三方库 loadash date-fns日期格式化 accounting.js货币格式化
 ### property 属性 模板 过滤器
 ### axios
 
 ### user.php
- <?php
+<pre><code>
+<?php
 $ret = array(
     'name' => isset($_GET['name'])? $_GET['name'] : '',
     'gender' => isset($_GET['gender'])? $_GET['gender'] : ''
 );
- 
 header('content-type:application:json;charset=utf8');
- 
 $origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : '';
- 
 $allow_origin = array(
     'http://www.client.com',
     'http://www.client2.com'
 );
- 
 if(in_array($origin, $allow_origin)){
     header('Access-Control-Allow-Origin:'.$origin);
     header('Access-Control-Allow-Methods:POST');
     header('Access-Control-Allow-Headers:x-requested-with,content-type');
 }
- 
 echo json_encode($ret);
-?>
+?></code></pre>
 ### 表格列表 删除 用户系统   
      CustomerSystem
 
 ### post.php
-<?php
+<pre><code><?php
     	$ret = array(
        'name' => isset($_POST['name'])? $_POST['name'] : '',
        'age' => isset($_POST['age'])? $_POST['age'] : ''
 );
 	echo json_encode($ret);
-?>
-
+?></code></pre>
 ## 生命周期 lifecycle
 
 
@@ -161,7 +160,7 @@ echo json_encode($ret);
 #### 1.基本介绍
     使用Vue.js开发SPA（Single page Application）单页面应用
     根据不同url地址，显示不同的内容，单显示在同一个页面中，成为单页面应用
-   [参考](https://router.vuejs.org/)
+[参考](https://router.vuejs.org/)
    npm info vue-router 查看最新版本
    npm install vue-router  安装
 
@@ -199,7 +198,7 @@ echo json_encode($ret);
      webpack是一个前段资源模块化加载器和打包工具,它能把各种资源都作为模块来使用和处理
      实际上,webpack 是通过不同的loader将这下资源加载后打包,然后输出打包后文件
      简单来说,webpack就是一个模块化加载器,所有资源都可以作为模块来加载,最后打包输出
-     [官网链接](https://webpack.github.io/)
+[官网链接](https://webpack.github.io/)
 
      webpack 版本 v1.x v2.x
      webpack有一个核心配置文件:webpack.config.js必须放在项目的根目录下
@@ -253,7 +252,7 @@ echo json_encode($ret);
 ### 1.简介
      vue-cli是一个Vue脚手架,可以快速构建项目结构
      vue-cli本身集成了多种项目模板
-     [github介绍](https://github.com/vuejs/vue-cli/tree/v2#vue-cli--)
+[github介绍](https://github.com/vuejs/vue-cli/tree/v2#vue-cli--)
      simple 很少使用
      webpack 包含ESLint工具--代码规范检查、单元测试等
      webpack-simple 没有代码规范检查和单元测试
@@ -274,6 +273,7 @@ echo json_encode($ret);
 #### 2.4运行
      npm run dev //启动测试服务
      npm build //将项目打包输入到dis目录,上模上线的话要将dis目录拷贝到服务器上
+##### 代码块 指定输入输入路径
  <pre><code>
  module.exports = {
      entry: './src/main.js',
@@ -283,4 +283,12 @@ echo json_encode($ret);
      filename: 'build.js'
      }
 </code></pre>    
+
+### 3.使用webpack模板
+     退回上一次 cd ..
+     vue init webpack vue-cli-demo2
      
+     ESLint 是用来统一代码规范和风格的工具,如:缩进空格符号要求比较严格
+     .eslintrc.js 设置规则等
+     .eslintgnore 设置忽略文件
+[官网](http://eslint.org)
