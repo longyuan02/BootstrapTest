@@ -296,16 +296,15 @@ echo json_encode($ret);
 ## 六模块化开发  vue-cli-demo  webpack-simple
 ### 1.vue-router模块化
      手动安装vue-ruter  cnpm install vue-router -S
-* 使用scaffold命令快速生成模板块
+> 使用scaffold命令快速生成模板块
 
 ##### 1.1.在main.js导入vue-router
 <pre><code>
-      import VueRouter from 'vue-router'
-      //使用VueRouter
-      Vue.use(VueRouter);
-      //创建路由
-     const router = new VueRouter(routerConfig);
-
+import VueRouter from 'vue-router'
+//使用VueRouter
+Vue.use(VueRouter);
+//创建路由
+const router = new VueRouter(routerConfig);
 new Vue({
   el: '#app',
   render: h => h(App),
