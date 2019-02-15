@@ -296,7 +296,7 @@ echo json_encode($ret);
 ## 六模块化开发  vue-cli-demo  webpack-simple
 ### 1.vue-router模块化
      手动安装vue-ruter  cnpm install vue-router -S
-> 使用scaffold命令快速生成模板块
+>>>> 使用scaffold命令快速生成模板块
 
 ##### 1.1.在main.js导入vue-router
 <pre><code>
