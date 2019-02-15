@@ -1,0 +1,15 @@
+{
+  "name": "webpack-demo",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev":"webpack-dev-server --open --hot --port 8800"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "vue": "^2.6.6"
+  }
+}

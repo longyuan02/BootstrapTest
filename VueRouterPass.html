@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由嵌套和参数传递</title>
+    <script src="sources/js/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js">
+    </script>
+    <style>
+        /* 修改链接点击样式 */
+        a {
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        li {
+            font-size: 18px;
+            color: black;
+        }
+
+        .active {
+            font-size: 18px;
+            color: orange;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="itany">
+        <!-- 设置链接 - to属性指定链接跳转url -->
+        <div>
+            <router-link to="/home">主页</router-link>
+            <router-link to="/user">用户</router-link>
+        </div>
+        <!-- 链接显示  显示路由内容 -->
+        <div>
+            <router-view></router-view>
+        </div>
+        <hr>
+        <button @click="addrouter">添加路由</button>
+        <button @click="routreplace">替换路由</button>
+        <transaction enter-active-class="animated bounceInleft"leave-active-class="animated bounceOutRight" >
+            <!-- 需要动画的控件 -->
+        </transaction>
+    </div>
+    <template id="user">
+        <div>
+            <h3>用户信息</h3>
+            <ul>
+
+                <router-link to="/user/login?name=tom&pwd=123" tag="li"> 用户登录</router-linl>
+
+
+                    <router-link to="/user/regist/alice/123456" tag="li"> 用户注册</router-linl>
+
+            </ul>
+            <router-view></router-view>
+        </div>
+    </template>
+</body>
+<script>
+    //1.定义响应的组件
+    var Home = {
+        template: '<h4>我是主页</h4>'
+    };
+
+    var User = {
+        template: '#user'
+    };
+    var Login = {
+        template: '<h4>用户登录 获取参数{{$route.query}}</h4>'
+    };
+    var Regist = {
+        template: '<h4>用户注册 获取注册参数{{$route.params}},{{$route.path}}</h4>'
+    };
+    //2.配置路由
+    const routers = [{
+            path: '/user',
+            component: User,
+            children: [{ //无需添加'/'
+                path: 'login',
+                component: Login
+            }, {
+                path: 'regist/:username/:passowrd', //rest风格传参 设置/:+参数名(输出参数名称)
+                component: Regist
+            }]
+        },
+        {
+            path: '/home',
+            component: Home
+        },
+        {
+            path: '/',
+            redirect: '/home'
+        } //默认显示 未选定时选择首页 重新定向
+    ]
+
+    //3.创建路由实例
+    const routerinput = new VueRouter({
+        mode: 'hash', //更改模式 默认hash 可用"hash" | "history" | "abstract"
+        routes: routers, //简写,相当于 routers:routerI
+        linkActiveClass: 'active', //重新定义 router-link-active class名称
+    })
+    //4.创建根组件实例并将路由挂载到Vue实例上
+    new Vue({
+        el: '#itany',
+        data() {
+            return {
+
+            }
+        },
+        router: routerinput, //注入路由
+        methods: {
+            addrouter() {
+                routerinput.push({
+                    path: '/home' //添加'/'和不添加'/'的区别是什么 测试拿到的结果是:不添加如果层级过多,有可能跳转不到指定路由位置
+                }); //添加路由,切换路由
+            },
+            routreplace() {
+                routerinput.replace({
+                    path: 'user'
+                });
+            }
+        }
+    });
+</script>
+
+</html>
