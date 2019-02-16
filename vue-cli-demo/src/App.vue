@@ -17,7 +17,6 @@
 
 <script>
 //引入axios
-import axios from "axios";
 export default {
   name: "app",
   data() {
@@ -27,22 +26,12 @@ export default {
   },
   methods: {
     send() {
-      this.$http
-        .post("https://news-at.zhihu.com/api/4/news/latest", "longyuan02", {
-          transformRequest: [
-            data => {
-              let params = "";
-              for (let index in data) {
-                params += index + "=" + data[index] + "&";
-              }
-              return params;
-            }
-          ]
-        }) //方式2
-        .then(rsp => {
-          console.log(rsp.data);
-          this.name = rsp.data.name;
-        });
+      //设置全局请求
+      this.$http.get("https://api.github.com/users/" + 'longyuan02').then(rsp => {
+        console.log(rsp.data);
+        this.getUser = rsp.data.node_id;
+        this.message = rsp.data; //空json接收
+      });
     }
   },
   mounted() {
