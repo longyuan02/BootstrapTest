@@ -332,6 +332,7 @@ mounted() {
      使用axios的两种方式:不是全局插件
      方式1:在每一个组件中引入axios
      方式2:在main.js中全局引入并添加到vue全局
+     .native 修饰符
 
 <pre><code>
 //全局Vue对象想中添加 可以使每个vue实例都可以使用
@@ -339,5 +340,6 @@ Vue.prototype.$http=axios;
 //vue实例中使用
 this.$http.post();
 </code></pre>
+
 
 
