@@ -156,7 +156,7 @@ echo json_encode($ret);
 
 
 
-## 四 vue-router路由 恩
+## 四 vue-router路由
 #### 1.基本介绍
     使用Vue.js开发SPA（Single page Application）单页面应用
     根据不同url地址，显示不同的内容，单显示在同一个页面中，成为单页面应用
