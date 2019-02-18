@@ -340,6 +340,44 @@ Vue.prototype.$http=axios;
 //vue实例中使用
 this.$http.post();
 </code></pre>
+## 六、Element UI
+#### 1.简介
+     Element UI是饿了么团队提供的一套基于Vue2.0的组件库,可以快速搭建网站,提高开发效率
+     Element UI pc端
+     MintUI 移动端
+[官网](http://element.eleme.io)
+
+#### 2.快速上手
+     cnpm install element-ui -S
+
+###### 2.1 完整引入
+     引入css文件 文件位置
+     element-ui-demo/node_modules/_element-ui@2.5.4@element-ui/lib/theme-chalk/index.css
+<pre><code>import ElementUI from 'element-ui'
+/** 该样式文件需要单独引入 */
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)</code></pre>
+> 这种方式引入了ElementUI中所有的组件
+     
+
+## 七、定义全局组件(插件)  vue-cli-demoe2
+     全局组件(插件):就是指可以在main.js中使用Vue.use()进行全局引用,然后在其他组件中可以使用,如vue-router
+     import VueRouter from 'vue-router'
+     Vue.use(VueRouter);
+     普通组件(插件):每次使用时都要引入:如axios
+     import axios form 'axios'
+
+
+## 八、Vuex
+#### 1.简介
+     Vuex 是一个专为Vue.js应用程序开发的状态管理模式.它采用集中式存储管理应用的所有组件的状态,并以响应的规则保证状态.
+     简单的来说及时用来集中管理数据.
+
+
+
+
+#资源地址
+[vue-cli](https://github.com/vuejs/vue-cli/tree/v2#vue-cli--)
 
 
 
